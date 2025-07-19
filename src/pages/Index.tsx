@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { VisualKeyboard } from '@/components/VisualKeyboard';
+import { LaptopKeyboard } from '@/components/LaptopKeyboard';
 import { InstrumentSelector } from '@/components/InstrumentSelector';
 import { VolumeControl } from '@/components/VolumeControl';
 import { audioEngine } from '@/components/AudioEngine';
@@ -89,7 +89,7 @@ const Index = () => {
 
         {/* Visual keyboard */}
         <div className="flex justify-center mb-8">
-          <VisualKeyboard onKeyPress={handleKeyPress} />
+          <LaptopKeyboard onKeyPress={handleKeyPress} />
         </div>
 
         {/* Features info */}
@@ -100,7 +100,7 @@ const Index = () => {
             </div>
             <h3 className="font-semibold mb-2 text-foreground">Full Keyboard</h3>
             <p className="text-sm text-muted-foreground">
-              Complete keyboard mapping across 5 octaves with every computer key assigned.
+              Laptop keyboard layout with visual feedback and gradient glow effects.
             </p>
           </div>
 
