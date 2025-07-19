@@ -47,7 +47,7 @@ const instruments = [
     id: 'drums',
     name: 'Drums',
     icon: Drum,
-    gradient: 'bg-gradient-warm',
+    gradient: 'bg-gradient-secondary',
     description: 'Percussive drum kit sounds'
   }
 ];

@@ -43,15 +43,23 @@ const Index = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="p-3 bg-gradient-primary rounded-2xl shadow-glow">
-              <Music2 className="w-8 h-8 text-white" />
+            <div className="relative p-2 bg-gradient-primary rounded-2xl shadow-glow">
+              <img 
+                src="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode400/40619686/40619686-1733628163627-4e90e841ab4ea.jpg" 
+                alt="Swalpam Music Kelkam Logo" 
+                className="w-12 h-12 rounded-xl object-cover"
+                style={{
+                  filter: 'brightness(1.2) contrast(1.1)',
+                  background: 'transparent'
+                }}
+              />
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Enhanced Musical Playground
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+              Swalpam Music Kelkam
             </h1>
           </div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Professional-grade musical experience with full keyboard support, multiple octaves, and high-quality synthesized instruments.
+            Professional musical playground with full keyboard support, multiple octaves, and high-quality synthesized instruments.
           </p>
         </div>
 
