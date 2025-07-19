@@ -237,12 +237,13 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
         {Array.from(activeKeys).map((noteKey, index) => (
           <div
             key={noteKey}
-            className="absolute inset-0 bg-gradient-radial from-primary/20 via-accent/10 to-transparent animate-pulse-glow"
+            className="absolute inset-0 animate-pulse-glow"
             style={{
               background: `radial-gradient(circle at ${50 + (index * 20) % 100}% ${50 + (index * 30) % 100}%, 
-                hsl(var(--primary) / 0.3) 0%, 
-                hsl(var(--accent) / 0.2) 30%, 
-                hsl(var(--secondary) / 0.1) 60%, 
+                hsl(0 84% 60% / 0.4) 0%, 
+                hsl(15 84% 65% / 0.3) 20%, 
+                hsl(30 90% 60% / 0.2) 40%, 
+                hsl(340 84% 60% / 0.1) 60%, 
                 transparent 100%)`
             }}
           />
