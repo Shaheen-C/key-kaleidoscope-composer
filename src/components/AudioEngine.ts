@@ -341,20 +341,18 @@ export class AudioEngine {
     const gain = this.gainNodes.get(noteKey);
 
     if (oscillator && gain && this.audioContext) {
-      // Immediate stop to prevent stuck notes
-      gain.gain.setValueAtTime(gain.gain.value, this.audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.05);
-      setTimeout(() => {
-        try {
-          oscillator.stop();
-          oscillator.disconnect();
-          gain.disconnect();
-        } catch (e) {
-          // Oscillator might already be stopped
-        }
-        this.oscillators.delete(noteKey);
-        this.gainNodes.delete(noteKey);
-      }, 60);
+      try {
+        // Immediate stop to prevent stuck notes
+        gain.gain.cancelScheduledValues(this.audioContext.currentTime);
+        gain.gain.setValueAtTime(0, this.audioContext.currentTime);
+        oscillator.stop(this.audioContext.currentTime);
+        oscillator.disconnect();
+        gain.disconnect();
+      } catch (e) {
+        // Oscillator might already be stopped
+      }
+      this.oscillators.delete(noteKey);
+      this.gainNodes.delete(noteKey);
     }
   }
 

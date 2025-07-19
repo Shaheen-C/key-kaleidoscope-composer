@@ -67,7 +67,6 @@ const LaptopKey: React.FC<KeyProps> = ({
 
 export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) => {
   const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set());
-  const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
 
   // Laptop keyboard layout with musical mappings
   const keyboardLayout = [
@@ -162,9 +161,13 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
 
   const playNote = useCallback(async (note: string, octave: number) => {
     await audioEngine.initialize();
+    
+    // Stop any existing note first to prevent conflicts
+    const noteKey = `${note}${octave}`;
+    audioEngine.stopNote(noteKey);
+    
     audioEngine.playNote(note, octave);
     
-    const noteKey = `${note}${octave}`;
     setActiveKeys(prev => new Set(prev).add(noteKey));
     onKeyPress?.(note, octave);
     
@@ -175,23 +178,16 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
         newSet.delete(noteKey);
         return newSet;
       });
-    }, 200);
+    }, 150);
   }, [onKeyPress]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Prevent repeating when key is held
-      if (event.repeat) return;
-      
       const key = event.key === ' ' ? ' ' : event.key.toLowerCase();
-      
-      // Prevent if already pressed
-      if (pressedKeys.has(key)) return;
-      
       const mapping = keyMappings[key];
+      
       if (mapping) {
         event.preventDefault();
-        setPressedKeys(prev => new Set(prev).add(key));
         playNote(mapping.note, mapping.octave);
       }
     };
@@ -201,12 +197,6 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
       const mapping = keyMappings[key];
       
       if (mapping) {
-        setPressedKeys(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(key);
-          return newSet;
-        });
-        
         const noteKey = `${mapping.note}${mapping.octave}`;
         audioEngine.stopNote(noteKey);
       }
@@ -215,7 +205,6 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
     // Handle window blur to stop all notes
     const handleBlur = () => {
       audioEngine.stopAllNotes();
-      setPressedKeys(new Set());
       setActiveKeys(new Set());
     };
 
@@ -263,8 +252,7 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
             >
               {row.keys.map((key) => {
                 const noteKey = `${key.note}${key.octave}`;
-                const keyCode = key.code === 'Space' ? ' ' : key.code.toLowerCase();
-                const isActive = activeKeys.has(noteKey) || pressedKeys.has(keyCode);
+                const isActive = activeKeys.has(noteKey);
                 
                 return (
                   <LaptopKey
@@ -285,35 +273,6 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
               })}
             </div>
           ))}
-        </div>
-
-        {/* Keyboard info */}
-        <div className="mt-8 text-center space-y-2">
-          <p className="text-muted-foreground text-sm">
-            💻 <strong>Laptop Keyboard Layout:</strong> Play music with your computer keyboard
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 max-w-4xl mx-auto text-xs text-muted-foreground">
-            <div className="bg-card/20 rounded-lg p-3">
-              <div className="font-semibold text-accent mb-1">Numbers (1-0)</div>
-              <div>Octaves 6-7 (High)</div>
-            </div>
-            <div className="bg-card/20 rounded-lg p-3">
-              <div className="font-semibold text-primary mb-1">QWERTY Row</div>
-              <div>Octave 5 (Upper)</div>
-            </div>
-            <div className="bg-card/20 rounded-lg p-3">
-              <div className="font-semibold text-secondary-foreground mb-1">ASDF Row</div>
-              <div>Octave 4 (Middle)</div>
-            </div>
-            <div className="bg-card/20 rounded-lg p-3">
-              <div className="font-semibold text-muted-foreground mb-1">ZXCV Row</div>
-              <div>Octave 3 (Low)</div>
-            </div>
-            <div className="bg-card/20 rounded-lg p-3">
-              <div className="font-semibold text-warm mb-1">Space Bar</div>
-              <div>Bass C (Octave 2)</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
