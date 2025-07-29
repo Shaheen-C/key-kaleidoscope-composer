@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LaptopKeyboard } from '@/components/LaptopKeyboard';
 import { InstrumentSelector } from '@/components/InstrumentSelector';
-import { VolumeControl } from '@/components/VolumeControl';
+
 import { audioEngine } from '@/components/AudioEngine';
 import { Keyboard } from 'lucide-react';
 
@@ -56,18 +56,13 @@ const Index = () => {
         </div>
 
         {/* Controls */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 space-y-4 md:space-y-0">
-          <div className="flex items-center space-x-4">
-          </div>
-          <div className="flex items-center space-x-6">
-            {notesPlayed > 0 && (
-              <div className="flex items-center space-x-2 px-4 py-2 bg-card/30 backdrop-blur-sm rounded-lg border border-border/30">
-                <Keyboard className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium">{notesPlayed} notes played</span>
-              </div>
-            )}
-            <VolumeControl />
-          </div>
+        <div className="flex flex-col md:flex-row justify-center items-center mb-8">
+          {notesPlayed > 0 && (
+            <div className="flex items-center space-x-2 px-4 py-2 bg-card/30 backdrop-blur-sm rounded-lg border border-border/30">
+              <Keyboard className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium">{notesPlayed} notes played</span>
+            </div>
+          )}
         </div>
 
         {/* Instrument selector */}
