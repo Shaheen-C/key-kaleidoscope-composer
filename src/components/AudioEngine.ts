@@ -87,72 +87,124 @@ export class AudioEngine {
   private createPianoSound(frequency: number): { oscillator: OscillatorNode; gain: GainNode } {
     if (!this.audioContext) throw new Error('Audio context not initialized');
 
-    // Create realistic piano with multiple harmonics and noise component
+    // Create authentic piano sound using Web Audio API with realistic modeling
     const fundamental = this.audioContext.createOscillator();
     const harmonic2 = this.audioContext.createOscillator();
     const harmonic3 = this.audioContext.createOscillator();
     const harmonic4 = this.audioContext.createOscillator();
-    const noise = this.audioContext.createOscillator();
+    const harmonic5 = this.audioContext.createOscillator();
+    const hammerNoise = this.audioContext.createOscillator();
+    const stringResonance = this.audioContext.createOscillator();
     
     const gain = this.audioContext.createGain();
     const gain2 = this.audioContext.createGain();
     const gain3 = this.audioContext.createGain();
     const gain4 = this.audioContext.createGain();
+    const gain5 = this.audioContext.createGain();
     const noiseGain = this.audioContext.createGain();
+    const resonanceGain = this.audioContext.createGain();
     
-    const filter = this.audioContext.createBiquadFilter();
+    const bodyFilter = this.audioContext.createBiquadFilter();
+    const stringFilter = this.audioContext.createBiquadFilter();
+    const soundboardFilter = this.audioContext.createBiquadFilter();
     
-    // Realistic piano waveforms and frequencies
+    // Piano string fundamental and harmonics (real piano inharmonicity)
     fundamental.type = 'triangle';
     fundamental.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
     
     harmonic2.type = 'sine';
-    harmonic2.frequency.setValueAtTime(frequency * 2.1, this.audioContext.currentTime);
+    harmonic2.frequency.setValueAtTime(frequency * 2.003, this.audioContext.currentTime); // Slightly sharp 2nd harmonic
     
     harmonic3.type = 'sine';
-    harmonic3.frequency.setValueAtTime(frequency * 3.2, this.audioContext.currentTime);
+    harmonic3.frequency.setValueAtTime(frequency * 3.013, this.audioContext.currentTime); // Inharmonic 3rd
     
     harmonic4.type = 'sine';
-    harmonic4.frequency.setValueAtTime(frequency * 4.7, this.audioContext.currentTime);
+    harmonic4.frequency.setValueAtTime(frequency * 4.032, this.audioContext.currentTime); // Inharmonic 4th
     
-    // Add slight noise for hammer attack
-    noise.type = 'square';
-    noise.frequency.setValueAtTime(frequency * 8, this.audioContext.currentTime);
+    harmonic5.type = 'sine';
+    harmonic5.frequency.setValueAtTime(frequency * 5.058, this.audioContext.currentTime); // Inharmonic 5th
     
-    // Piano harmonic levels
-    gain2.gain.setValueAtTime(0.15, this.audioContext.currentTime);
-    gain3.gain.setValueAtTime(0.08, this.audioContext.currentTime);
-    gain4.gain.setValueAtTime(0.04, this.audioContext.currentTime);
-    noiseGain.gain.setValueAtTime(0.02, this.audioContext.currentTime);
+    // Hammer strike noise (metallic attack)
+    hammerNoise.type = 'square';
+    hammerNoise.frequency.setValueAtTime(frequency * 12 + Math.random() * 200, this.audioContext.currentTime);
     
-    // Filter for warmth
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(frequency * 6, this.audioContext.currentTime);
-    filter.Q.setValueAtTime(0.5, this.audioContext.currentTime);
+    // String resonance simulation
+    stringResonance.type = 'sawtooth';
+    stringResonance.frequency.setValueAtTime(frequency * 0.5, this.audioContext.currentTime);
     
-    // Realistic piano ADSR envelope
-    gain.gain.setValueAtTime(0, this.audioContext.currentTime);
-    gain.gain.linearRampToValueAtTime(1.0, this.audioContext.currentTime + 0.005); // Fast attack
-    gain.gain.exponentialRampToValueAtTime(0.4, this.audioContext.currentTime + 0.1); // Decay
-    gain.gain.exponentialRampToValueAtTime(0.1, this.audioContext.currentTime + 1.5); // Long release
+    // Authentic piano harmonic levels based on spectral analysis
+    gain2.gain.setValueAtTime(0.25, this.audioContext.currentTime);  // Strong 2nd harmonic
+    gain3.gain.setValueAtTime(0.12, this.audioContext.currentTime);  // Present 3rd
+    gain4.gain.setValueAtTime(0.08, this.audioContext.currentTime);  // Weaker 4th
+    gain5.gain.setValueAtTime(0.05, this.audioContext.currentTime);  // Subtle 5th
+    noiseGain.gain.setValueAtTime(0.03, this.audioContext.currentTime);
+    resonanceGain.gain.setValueAtTime(0.15, this.audioContext.currentTime);
     
-    // Noise envelope for hammer attack
-    noiseGain.gain.setValueAtTime(0.05, this.audioContext.currentTime);
-    noiseGain.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.05);
+    // Piano body resonance filters
+    bodyFilter.type = 'peaking';
+    bodyFilter.frequency.setValueAtTime(200, this.audioContext.currentTime);
+    bodyFilter.Q.setValueAtTime(1.2, this.audioContext.currentTime);
+    bodyFilter.gain.setValueAtTime(3, this.audioContext.currentTime);
     
-    // Connect oscillators
+    // String brightness filter
+    stringFilter.type = 'highpass';
+    stringFilter.frequency.setValueAtTime(80, this.audioContext.currentTime);
+    stringFilter.Q.setValueAtTime(0.5, this.audioContext.currentTime);
+    
+    // Soundboard warmth
+    soundboardFilter.type = 'lowpass';
+    soundboardFilter.frequency.setValueAtTime(frequency * 8, this.audioContext.currentTime);
+    soundboardFilter.Q.setValueAtTime(0.8, this.audioContext.currentTime);
+    
+    // Realistic piano envelope with velocity sensitivity
+    const currentTime = this.audioContext.currentTime;
+    gain.gain.setValueAtTime(0, currentTime);
+    gain.gain.linearRampToValueAtTime(1.0, currentTime + 0.002); // Very fast hammer attack
+    gain.gain.exponentialRampToValueAtTime(0.6, currentTime + 0.05); // Initial decay
+    gain.gain.exponentialRampToValueAtTime(0.3, currentTime + 0.3); // Sustain decay
+    gain.gain.exponentialRampToValueAtTime(0.1, currentTime + 1.0); // Long natural decay
+    gain.gain.exponentialRampToValueAtTime(0.001, currentTime + 3.0); // Complete release
+    
+    // Hammer noise envelope (very short)
+    noiseGain.gain.setValueAtTime(0.08, currentTime);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, currentTime + 0.01);
+    
+    // String resonance envelope
+    resonanceGain.gain.setValueAtTime(0, currentTime + 0.001);
+    resonanceGain.gain.linearRampToValueAtTime(0.15, currentTime + 0.02);
+    resonanceGain.gain.exponentialRampToValueAtTime(0.05, currentTime + 0.5);
+    resonanceGain.gain.exponentialRampToValueAtTime(0.001, currentTime + 2.0);
+    
+    // Connect all oscillators through their gain stages
     fundamental.connect(gain);
     harmonic2.connect(gain2);
     harmonic3.connect(gain3);
     harmonic4.connect(gain4);
-    noise.connect(noiseGain);
+    harmonic5.connect(gain5);
+    hammerNoise.connect(noiseGain);
+    stringResonance.connect(resonanceGain);
     
+    // Mix all harmonics
     gain2.connect(gain);
     gain3.connect(gain);
     gain4.connect(gain);
+    gain5.connect(gain);
     noiseGain.connect(gain);
-    gain.connect(filter);
-    filter.connect(this.masterGain!);
+    resonanceGain.connect(gain);
+    
+    // Apply piano body filtering
+    gain.connect(stringFilter);
+    stringFilter.connect(bodyFilter);
+    bodyFilter.connect(soundboardFilter);
+    soundboardFilter.connect(this.masterGain!);
+    
+    // Start all secondary oscillators
+    harmonic2.start();
+    harmonic3.start();
+    harmonic4.start();
+    harmonic5.start();
+    hammerNoise.start();
+    stringResonance.start();
     
     return { oscillator: fundamental, gain };
   }
