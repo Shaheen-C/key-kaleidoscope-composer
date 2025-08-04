@@ -40,12 +40,12 @@ const Key: React.FC<KeyProps> = ({ note, octave, isBlack = false, isActive = fal
         "select-none touch-manipulation",
         isBlack
           ? cn(
-              "text-secondary-foreground h-20 md:h-24 w-6 md:w-8 z-10 -mx-1 rounded-b-lg",
+              "text-secondary-foreground h-16 sm:h-20 md:h-24 w-4 sm:w-6 md:w-8 z-10 -mx-1 rounded-b-lg",
               getKeyGradient(),
               isActive && "shadow-active animate-key-press scale-95"
             )
           : cn(
-              "text-card-foreground h-32 md:h-40 w-8 md:w-12 rounded-b-xl",
+              "text-card-foreground h-24 sm:h-32 md:h-40 w-6 sm:w-8 md:w-12 rounded-b-xl",
               getKeyGradient(),
               isActive && "shadow-active animate-key-press scale-95"
             )
@@ -56,16 +56,16 @@ const Key: React.FC<KeyProps> = ({ note, octave, isBlack = false, isActive = fal
         onClick();
       }}
     >
-      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+      <div className="absolute bottom-1 sm:bottom-2 left-1/2 transform -translate-x-1/2">
         <div className={cn(
-          "text-xs font-medium opacity-70",
+          "text-[10px] sm:text-xs font-medium opacity-70",
           isBlack ? "text-secondary-foreground" : "text-card-foreground"
         )}>
           {note}{octave}
         </div>
         {keyBinding && (
           <div className={cn(
-            "text-[10px] font-mono opacity-50 mt-1",
+            "text-[8px] sm:text-[10px] font-mono opacity-50 mt-1",
             isBlack ? "text-secondary-foreground" : "text-muted-foreground"
           )}>
             {keyBinding}
@@ -287,12 +287,12 @@ export const VisualKeyboard: React.FC<KeyboardProps> = ({ onKeyPress }) => {
 
       {/* Full keyboard display */}
       <div className="relative overflow-x-auto">
-        <div className="flex flex-col gap-2 p-4 bg-gradient-to-b from-background/50 to-background/80 backdrop-blur-xl rounded-2xl border border-border/30 shadow-glow min-w-max">
+        <div className="flex flex-col gap-1 sm:gap-2 p-2 sm:p-4 bg-gradient-to-b from-background/50 to-background/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-border/30 shadow-glow min-w-max">
           {Object.entries(keysByOctave)
             .sort(([a], [b]) => Number(b) - Number(a)) // Highest octave first
             .map(([octave, octaveKeys]) => (
               <div key={octave} className="flex flex-col">
-                <div className="text-xs text-muted-foreground mb-1 text-center">
+                <div className="text-[10px] sm:text-xs text-muted-foreground mb-1 text-center">
                   Octave {octave}
                 </div>
                 <div className="relative flex items-end justify-center gap-0">
@@ -341,22 +341,22 @@ export const VisualKeyboard: React.FC<KeyboardProps> = ({ onKeyPress }) => {
         <p className="text-muted-foreground text-sm">
           🎹 <strong>Full Keyboard Support:</strong> Use your entire computer keyboard to play
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-xs text-muted-foreground">
-          <div className="bg-card/20 rounded-lg p-3">
-            <div className="font-semibold text-accent mb-1">Numbers (1-8)</div>
-            <div>Octave 6-7 (High)</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 max-w-4xl mx-auto text-xs text-muted-foreground">
+          <div className="bg-card/20 rounded-lg p-2 sm:p-3">
+            <div className="font-semibold text-accent mb-1 text-[10px] sm:text-xs">Numbers (1-8)</div>
+            <div className="text-[10px] sm:text-xs">Octave 6-7 (High)</div>
           </div>
-          <div className="bg-card/20 rounded-lg p-3">
-            <div className="font-semibold text-primary mb-1">QWERTY Row</div>
-            <div>Octave 5 (Upper)</div>
+          <div className="bg-card/20 rounded-lg p-2 sm:p-3">
+            <div className="font-semibold text-primary mb-1 text-[10px] sm:text-xs">QWERTY Row</div>
+            <div className="text-[10px] sm:text-xs">Octave 5 (Upper)</div>
           </div>
-          <div className="bg-card/20 rounded-lg p-3">
-            <div className="font-semibold text-secondary-foreground mb-1">ASDF Row</div>
-            <div>Octave 4 (Middle)</div>
+          <div className="bg-card/20 rounded-lg p-2 sm:p-3">
+            <div className="font-semibold text-secondary-foreground mb-1 text-[10px] sm:text-xs">ASDF Row</div>
+            <div className="text-[10px] sm:text-xs">Octave 4 (Middle)</div>
           </div>
-          <div className="bg-card/20 rounded-lg p-3">
-            <div className="font-semibold text-muted-foreground mb-1">ZXCV Row</div>
-            <div>Octave 3 (Low)</div>
+          <div className="bg-card/20 rounded-lg p-2 sm:p-3">
+            <div className="font-semibold text-muted-foreground mb-1 text-[10px] sm:text-xs">ZXCV Row</div>
+            <div className="text-[10px] sm:text-xs">Octave 3 (Low)</div>
           </div>
         </div>
         <p className="text-xs text-muted-foreground">

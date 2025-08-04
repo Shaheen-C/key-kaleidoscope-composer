@@ -30,10 +30,10 @@ const LaptopKey: React.FC<KeyProps> = ({
       className={cn(
         "relative flex items-center justify-center rounded-lg border-2 transition-all duration-150",
         "bg-card/80 backdrop-blur-sm border-border/30 text-card-foreground",
-        "hover:bg-card hover:border-border/50 hover:scale-105",
+        "hover:bg-card hover:border-border/50 active:scale-95",
         "focus:outline-none focus:ring-2 focus:ring-primary/50",
-        "select-none touch-manipulation font-mono text-sm font-medium",
-        "shadow-lg hover:shadow-xl",
+        "select-none touch-manipulation font-mono text-xs sm:text-sm font-medium",
+        "shadow-lg hover:shadow-xl min-h-[3rem] sm:min-h-[3.5rem]",
         isActive && [
           "scale-95 bg-gradient-primary border-primary/50",
           "shadow-active text-white",
@@ -74,71 +74,71 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
     {
       row: 'numbers',
       keys: [
-        { code: '1', note: 'C', octave: 6, width: 'w-12', height: 'h-12' },
-        { code: '2', note: 'D', octave: 6, width: 'w-12', height: 'h-12' },
-        { code: '3', note: 'E', octave: 6, width: 'w-12', height: 'h-12' },
-        { code: '4', note: 'F', octave: 6, width: 'w-12', height: 'h-12' },
-        { code: '5', note: 'G', octave: 6, width: 'w-12', height: 'h-12' },
-        { code: '6', note: 'A', octave: 6, width: 'w-12', height: 'h-12' },
-        { code: '7', note: 'B', octave: 6, width: 'w-12', height: 'h-12' },
-        { code: '8', note: 'C', octave: 7, width: 'w-12', height: 'h-12' },
-        { code: '9', note: 'D', octave: 7, width: 'w-12', height: 'h-12' },
-        { code: '0', note: 'E', octave: 7, width: 'w-12', height: 'h-12' },
+        { code: '1', note: 'C', octave: 6, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '2', note: 'D', octave: 6, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '3', note: 'E', octave: 6, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '4', note: 'F', octave: 6, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '5', note: 'G', octave: 6, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '6', note: 'A', octave: 6, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '7', note: 'B', octave: 6, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '8', note: 'C', octave: 7, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '9', note: 'D', octave: 7, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '0', note: 'E', octave: 7, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
       ]
     },
     // QWERTY row (Octave 5)
     {
       row: 'qwerty',
       keys: [
-        { code: 'Q', note: 'C', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'W', note: 'C#', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'E', note: 'D', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'R', note: 'D#', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'T', note: 'E', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'Y', note: 'F', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'U', note: 'F#', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'I', note: 'G', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'O', note: 'G#', octave: 5, width: 'w-12', height: 'h-12' },
-        { code: 'P', note: 'A', octave: 5, width: 'w-12', height: 'h-12' },
+        { code: 'Q', note: 'C', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'W', note: 'C#', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'E', note: 'D', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'R', note: 'D#', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'T', note: 'E', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'Y', note: 'F', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'U', note: 'F#', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'I', note: 'G', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'O', note: 'G#', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'P', note: 'A', octave: 5, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
       ]
     },
     // ASDF row (Octave 4 - Main)
     {
       row: 'asdf',
       keys: [
-        { code: 'A', note: 'C', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: 'S', note: 'C#', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: 'D', note: 'D', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: 'F', note: 'D#', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: 'G', note: 'E', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: 'H', note: 'F', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: 'J', note: 'F#', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: 'K', note: 'G', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: 'L', note: 'G#', octave: 4, width: 'w-12', height: 'h-12' },
-        { code: ';', note: 'A', octave: 4, width: 'w-12', height: 'h-12' },
+        { code: 'A', note: 'C', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'S', note: 'C#', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'D', note: 'D', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'F', note: 'D#', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'G', note: 'E', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'H', note: 'F', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'J', note: 'F#', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'K', note: 'G', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'L', note: 'G#', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: ';', note: 'A', octave: 4, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
       ]
     },
     // ZXCV row (Octave 3)
     {
       row: 'zxcv',
       keys: [
-        { code: 'Z', note: 'C', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: 'X', note: 'C#', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: 'C', note: 'D', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: 'V', note: 'D#', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: 'B', note: 'E', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: 'N', note: 'F', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: 'M', note: 'F#', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: ',', note: 'G', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: '.', note: 'G#', octave: 3, width: 'w-12', height: 'h-12' },
-        { code: '/', note: 'A', octave: 3, width: 'w-12', height: 'h-12' },
+        { code: 'Z', note: 'C', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'X', note: 'C#', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'C', note: 'D', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'V', note: 'D#', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'B', note: 'E', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'N', note: 'F', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: 'M', note: 'F#', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: ',', note: 'G', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '.', note: 'G#', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
+        { code: '/', note: 'A', octave: 3, width: 'w-8 sm:w-10 md:w-12', height: 'h-12' },
       ]
     },
     // Space bar (Bass)
     {
       row: 'space',
       keys: [
-        { code: 'Space', note: 'C', octave: 2, width: 'w-96', height: 'h-12' },
+        { code: 'Space', note: 'C', octave: 2, width: 'w-32 sm:w-48 md:w-96', height: 'h-12' },
       ]
     }
   ];
@@ -240,14 +240,14 @@ export const LaptopKeyboard: React.FC<LaptopKeyboardProps> = ({ onKeyPress }) =>
       </div>
 
       {/* Keyboard layout */}
-      <div className="relative z-10 bg-card/20 backdrop-blur-xl rounded-3xl p-8 border border-border/30 shadow-glow">
-        <div className="space-y-4">
+      <div className="relative z-10 bg-card/20 backdrop-blur-xl rounded-2xl md:rounded-3xl p-3 sm:p-6 md:p-8 border border-border/30 shadow-glow overflow-x-auto">
+        <div className="space-y-2 sm:space-y-4 min-w-max">
           {keyboardLayout.map((row) => (
             <div 
               key={row.row} 
               className={cn(
-                "flex justify-center gap-2",
-                row.row === 'space' && "mt-6"
+                "flex justify-center gap-1 sm:gap-2",
+                row.row === 'space' && "mt-3 sm:mt-6"
               )}
             >
               {row.keys.map((key) => {
